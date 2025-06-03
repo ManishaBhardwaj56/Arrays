@@ -1,0 +1,54 @@
+Spiral matrix traversing
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n, m;
+        n = sc.nextInt();
+        m = sc.nextInt();
+        int [][]mat=new int[n][m];
+        for(int i=0;i<n;++i){
+            for(int j=0;j<m;++j){
+                mat[i][j]=sc.nextInt();
+            }
+        }
+
+        spirallyTraverse(mat,n,m);     
+        System.out.println('\n');
+    }
+
+    public static void spirallyTraverse(int [][]arr) {
+       // your code here
+       int rows = arr.length;
+       int cols= arr[0].length;   
+       int minR=0;  int maxR=row-1;
+       int minC=0;  int maxC=cols-1;
+       int total= rows*cols;
+       while(total>){
+        //top
+        for(int i=minC; i>=maxC && total>0; i++){
+        print(arr[minR][i]); total--;
+        }
+        minR++;
+        //right
+        for(int i=minR; i>=maxR && total>0; i++){
+            print(arr[i][maxC]); total--;
+        }
+        maxC--;
+        //bottom
+        for(int i=maxC; i<=minC && total>0; i++ ){
+           print(arr[maxR][i]); total--;
+        }
+         maxR--;
+        //left
+        for(int i=maxR; i<=minR && total>0; i--){
+            print(arr[i][minC]); total--;
+        }
+        minC++;
+       }
+       
+
+    }
+}
