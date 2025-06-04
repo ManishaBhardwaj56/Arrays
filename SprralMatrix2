@@ -1,0 +1,138 @@
+You are given a matrix with N rows and M columns. You have to start iterating downwards on the first column and then continue spirally. Print an array containing the spiral of the matrix in the said manner.
+
+NOTE: You need to complete the given function. The input and printing of output will be handled by the driver code.
+
+Input Format:
+The first line contains t: the number of test cases.
+
+For each test case: The first line contains N and M.
+
+The next N lines contain M integers each representing the elements of the matrix.
+
+Output Format:
+Print an array containing the spiral of the matrix in the said manner.
+
+Example 1:
+Input:
+
+1
+3 3
+1 4 7
+2 5 8
+3 6 9
+Output:
+
+1 2 3 6 9 8 7 4 5
+Explanation:
+
+We iterate spirally and print each element.
+
+Example 2:
+Input:
+
+1
+3 3
+1 2 3
+4 5 6
+7 8 9
+Output:
+
+1 4 7 8 9 6 3 2 5
+Explanation:
+
+We iterate spirally and print each element.
+
+Constraints:
+1 <= T <= 10
+
+1 <= N,M <= 200
+
+0 <= A[i] <=1000000
+
+import java.util.Scanner;
+import java.util.Vector;
+
+class Solution {
+    public int[] spiralMatrix2(int[][] mat, int n, int m) {
+        int[] result = new int[n * m];
+        boolean[][] visited = new boolean[n][m];
+
+        int index = 0;
+
+        
+        for (int i = 0; i < n; i++) {
+            result[index++] = mat[i][0];
+            visited[i][0] = true;
+        }
+
+        
+        int top = 0, bottom = n - 1;
+        int left = 1, right = m - 1;
+
+        while (index < n * m) {
+            //right
+            for (int j = left; j <= right && index < n * m; j++) {
+                if (!visited[bottom][j]) {
+                    result[index++] = mat[bottom][j];
+                    visited[bottom][j] = true;
+                }
+            }
+            bottom--;
+
+            // up
+            for (int i = bottom; i >= top && index < n * m; i--) {
+                if (!visited[i][right]) {
+                    result[index++] = mat[i][right];
+                    visited[i][right] = true;
+                }
+            }
+            right--;
+
+            //left
+            for (int j = right; j >= left && index < n * m; j--) {
+                if (!visited[top][j]) {
+                    result[index++] = mat[top][j];
+                    visited[top][j] = true;
+                }
+            }
+            top++;
+
+            //down
+            for (int i = top; i <= bottom && index < n * m; i++) {
+                if (!visited[i][left]) {
+                    result[index++] = mat[i][left];
+                    visited[i][left] = true;
+                }
+            }
+            left++;
+        }
+
+        return result;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int[][] matrix = new int[n][m];
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    matrix[i][j] = sc.nextInt();
+                }
+            }
+
+            Solution ob = new Solution();
+            int[] result = ob.spiralMatrix2(matrix, n, m);
+            for (int i = 0; i <result.length; i++) {
+                System.out.print(result[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
